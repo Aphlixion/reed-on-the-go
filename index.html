@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reed On The Go | Mobile Mechanic — Cave City, AR</title>
+<meta name="description" content="On-site auto repair in Cave City, Arkansas. 30 years of experience, gas & diesel, A/C work, fair pricing. We come to you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt:#20242A;
+    --steel:#3E5C76;
+    --steel-light:#6C8AA6;
+    --orange:#E2622B;
+    --orange-dark:#C24F1F;
+    --concrete:#E7E8E3;
+    --concrete-dark:#D7D8D0;
+    --paper:#F6F6F3;
+    --white:#FFFFFF;
+    --ink:#20242A;
+    --ink-soft:#4A5158;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Work Sans', -apple-system, sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.headline{
+    font-family:'Oswald', sans-serif;
+    font-weight:600;
+    letter-spacing:0.01em;
+    line-height:1.1;
+    color:var(--asphalt);
+  }
+  a{color:inherit; text-decoration:none;}
+  img{max-width:100%; display:block;}
+  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
+  section{padding:76px 0;}
+  ul{list-style:none;}
+
+  /* Focus visibility */
+  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+    outline:3px solid var(--orange); outline-offset:2px;
+  }
+
+  /* ---------- Header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--asphalt);
+    border-bottom:3px solid var(--orange);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 24px; max-width:1080px; margin:0 auto;
+  }
+  .logo{
+    font-family:'Oswald', sans-serif;
+    font-weight:700; font-size:1.35rem;
+    color:var(--white);
+    display:flex; align-items:baseline; gap:8px;
+  }
+  .logo span{color:var(--orange);}
+  .nav-links{display:flex; gap:28px; align-items:center;}
+  .nav-links a{color:var(--concrete); font-size:0.95rem; font-weight:500; transition:color .15s;}
+  .nav-links a:hover{color:var(--white);}
+  .nav-call{
+    background:var(--orange); color:var(--white)!important;
+    padding:9px 18px; border-radius:2px; font-weight:600;
+  }
+  .nav-call:hover{background:var(--orange-dark);}
+  .nav-toggle{display:none; background:none; border:none; color:var(--white); font-size:1.6rem; cursor:pointer;}
+
+  @media (max-width:760px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      background:var(--asphalt); flex-direction:column;
+      padding:8px 24px 20px; gap:16px;
+      display:none;
+    }
+    .nav-links.open{display:flex;}
+    .nav-toggle{display:block;}
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--asphalt);
+    color:var(--white);
+    padding:64px 0 0;
+    overflow:hidden;
+  }
+  .hero .wrap{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
+  }
+  .hero-tag{
+    color:var(--orange); font-weight:600; font-size:0.95rem;
+    margin-bottom:14px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 5vw, 3.6rem);
+    color:var(--white);
+    margin-bottom:18px;
+  }
+  .hero p.lede{
+    font-size:1.15rem; color:var(--concrete); max-width:46ch; margin-bottom:30px;
+  }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px;}
+  .btn{
+    display:inline-block; padding:14px 26px; border-radius:2px;
+    font-weight:600; font-size:1rem; cursor:pointer; border:2px solid transparent;
+    transition:background .15s, color .15s, border-color .15s;
+  }
+  .btn-primary{background:var(--orange); color:var(--white);}
+  .btn-primary:hover{background:var(--orange-dark);}
+  .btn-outline{border-color:var(--concrete); color:var(--white);}
+  .btn-outline:hover{border-color:var(--white); background:rgba(255,255,255,.06);}
+
+  .road-graphic{width:100%; height:auto;}
+
+  /* Trust strip */
+  .trust{
+    background:var(--steel); color:var(--white);
+    border-top:1px solid rgba(255,255,255,.15);
+  }
+  .trust .wrap{
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:18px;
+    padding:22px 24px;
+  }
+  .trust-item{
+    display:flex; align-items:center; gap:10px; font-size:0.98rem; font-weight:500;
+  }
+  .trust-item .dot{width:7px; height:7px; background:var(--orange); border-radius:50%; flex:none;}
+
+  /* ---------- Section headings ---------- */
+  .section-head{max-width:60ch; margin-bottom:44px;}
+  .section-head .kicker{
+    color:var(--orange); font-weight:600; font-size:0.92rem; display:block; margin-bottom:8px;
+  }
+  .section-head h2{font-size:clamp(1.7rem, 3.2vw, 2.3rem);}
+  .section-head p{color:var(--ink-soft); margin-top:12px; font-size:1.05rem;}
+
+  /* ---------- Services ---------- */
+  .services-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:2px;
+    background:var(--concrete-dark);
+  }
+  .service-card{
+    background:var(--white); padding:30px 26px; border-left:3px solid var(--orange);
+  }
+  .service-card h3{font-size:1.15rem; margin-bottom:10px;}
+  .service-card p{color:var(--ink-soft); font-size:0.96rem;}
+  @media (max-width:760px){ .services-grid{grid-template-columns:1fr;} }
+
+  /* ---------- How it works ---------- */
+  .how{background:var(--asphalt); color:var(--white);}
+  .how .section-head h2, .how .section-head p{color:var(--white);}
+  .how .section-head p{color:var(--concrete);}
+  .steps{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:28px;
+  }
+  .step{border-top:2px solid var(--orange); padding-top:18px;}
+  .step .num{
+    font-family:'Oswald',sans-serif; font-size:2rem; color:var(--orange); font-weight:600;
+    display:block; margin-bottom:8px;
+  }
+  .step h3{color:var(--white); font-size:1.05rem; margin-bottom:8px;}
+  .step p{color:var(--concrete); font-size:0.93rem;}
+  @media (max-width:760px){ .steps{grid-template-columns:1fr 1fr;} }
+  @media (max-width:480px){ .steps{grid-template-columns:1fr;} }
+
+  /* ---------- Service area ---------- */
+  .area-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  .area-list{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+  .area-list li{
+    background:var(--concrete); padding:7px 14px; font-size:0.92rem; font-weight:500;
+    border-radius:2px; color:var(--ink);
+  }
+  .area-note{
+    margin-top:22px; padding:16px 18px; background:var(--white); border-left:3px solid var(--steel);
+    font-size:0.93rem; color:var(--ink-soft);
+  }
+  .map-box{
+    background:var(--concrete); aspect-ratio:1/1; border-radius:2px;
+    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+    border:1px solid var(--concrete-dark);
+  }
+  @media (max-width:760px){ .area-grid{grid-template-columns:1fr;} }
+
+  /* ---------- Testimonial ---------- */
+  .testimonial{background:var(--concrete);}
+  .quote-box{max-width:66ch;}
+  .quote-box p.q{
+    font-family:'Oswald', sans-serif; font-weight:500; font-size:1.5rem; color:var(--asphalt);
+    line-height:1.4; margin-bottom:18px;
+  }
+  .quote-box .who{color:var(--ink-soft); font-weight:600; font-size:0.95rem;}
+
+  /* ---------- Quote form / schedule ---------- */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
+  @media (max-width:840px){ .split{grid-template-columns:1fr;} }
+
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-size:0.9rem; font-weight:600; margin-bottom:6px; color:var(--asphalt);}
+  .field input, .field textarea, .field select{
+    width:100%; padding:11px 13px; border:1px solid var(--concrete-dark); border-radius:2px;
+    font-family:inherit; font-size:0.97rem; background:var(--white); color:var(--ink);
+  }
+  .field textarea{resize:vertical; min-height:100px;}
+  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+  @media (max-width:480px){ .field-row{grid-template-columns:1fr;} }
+  .form-note{font-size:0.85rem; color:var(--ink-soft); margin-top:14px;}
+  .submit-btn{
+    width:100%; padding:14px; background:var(--orange); color:var(--white);
+    border:none; border-radius:2px; font-weight:600; font-size:1.02rem; cursor:pointer;
+    font-family:inherit;
+  }
+  .submit-btn:hover{background:var(--orange-dark);}
+  .form-status{margin-top:12px; font-size:0.9rem; display:none;}
+  .form-status.success{color:#2E6B3E; display:block;}
+  .form-status.error{color:#B0392B; display:block;}
+
+  .schedule-card{
+    background:var(--white); border:1px solid var(--concrete-dark); padding:26px; height:100%;
+  }
+  .schedule-card h3{margin-bottom:10px;}
+  .schedule-card p{color:var(--ink-soft); margin-bottom:18px; font-size:0.96rem;}
+  .calendly-placeholder{
+    border:2px dashed var(--concrete-dark); padding:34px 20px; text-align:center;
+    color:var(--ink-soft); font-size:0.92rem; border-radius:2px;
+  }
+
+  /* ---------- Payment ---------- */
+  .pay{background:var(--steel); color:var(--white);}
+  .pay .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;}
+  .pay h2{color:var(--white); font-size:1.7rem;}
+  .pay p{color:var(--concrete); max-width:44ch; margin-top:8px;}
+  .pay .btn-primary{white-space:nowrap;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--asphalt); color:var(--concrete); padding:52px 0 28px;}
+  .footer-grid{display:grid; grid-template-columns:1.1fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px;}
+  .hours-row{display:flex; justify-content:space-between; font-size:0.9rem; color:var(--concrete); margin-bottom:6px; gap:12px;}
+  .hours-row span:first-child{color:#9AA1A8;}
+  footer h4{color:var(--white); font-family:'Oswald',sans-serif; font-size:1rem; margin-bottom:14px;}
+  footer p, footer li{font-size:0.93rem; color:var(--concrete); margin-bottom:8px;}
+  footer a:hover{color:var(--white);}
+  .footer-bottom{
+    border-top:1px solid rgba(255,255,255,.12); padding-top:22px;
+    font-size:0.82rem; color:#8A9199; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
+  }
+  @media (max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr;} }
+  @media (max-width:500px){ .footer-grid{grid-template-columns:1fr;} }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none!important;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="#top" class="logo">REED <span>ON THE GO</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
+    <div class="nav-links" id="navLinks">
+      <a href="#services">Services</a>
+      <a href="#how">How It Works</a>
+      <a href="#area">Service Area</a>
+      <a href="#hours">Hours</a>
+      <a href="#quote">Get a Quote</a>
+      <a href="tel:8708349872" class="nav-call">Call (870) 834-9872</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ---------- HERO ---------- -->
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <span class="hero-tag">On-site auto repair &middot; Cave City, Arkansas</span>
+        <h1>Your vehicle won't start. We'll come start it.</h1>
+        <p class="lede">30 years of hands-on experience with gas and diesel engines. When your truck or car can't make it to a shop, we bring the shop to you &mdash; right in your driveway.</p>
+        <div class="hero-ctas">
+          <a href="#quote" class="btn btn-primary">Get a free quote</a>
+          <a href="tel:8708349872" class="btn btn-outline">Call (870) 834-9872</a>
+        </div>
+      </div>
+      <div>
+        <svg class="road-graphic" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a service route from the shop to a customer's location">
+          <path d="M40 300 C 120 300, 100 180, 190 170 S 280 60, 380 50" stroke="#3E5C76" stroke-width="4" fill="none" stroke-dasharray="2 14" stroke-linecap="round"/>
+          <circle cx="40" cy="300" r="10" fill="#6C8AA6"/>
+          <circle cx="40" cy="300" r="4" fill="#20242A"/>
+          <g transform="translate(360,26)">
+            <path d="M20 0 C 9 0 0 9 0 20 C 0 34 20 52 20 52 C 20 52 40 34 40 20 C 40 9 31 0 20 0 Z" fill="#E2622B"/>
+            <path d="M20 12 l3 6 h6 l-5 4 2 6 -6 -4 -6 4 2 -6 -5 -4 h6 z" fill="#20242A"/>
+          </g>
+          <g transform="translate(150,215)">
+            <rect x="-46" y="-14" width="92" height="30" rx="4" fill="#F6F6F3"/>
+            <rect x="-40" y="-24" width="40" height="14" rx="3" fill="#F6F6F3"/>
+            <circle cx="-28" cy="18" r="10" fill="#20242A"/>
+            <circle cx="24" cy="18" r="10" fill="#20242A"/>
+            <circle cx="-28" cy="18" r="4" fill="#6C8AA6"/>
+            <circle cx="24" cy="18" r="4" fill="#6C8AA6"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <div class="trust">
+      <div class="wrap">
+        <div class="trust-item"><span class="dot"></span>30 years of experience</div>
+        <div class="trust-item"><span class="dot"></span>Gas &amp; diesel engines</div>
+        <div class="trust-item"><span class="dot"></span>A/C repair &amp; service</div>
+        <div class="trust-item"><span class="dot"></span>Fair, honest pricing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- SERVICES ---------- -->
+  <section id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">What we fix</span>
+        <h2>On-site repair, done right the first time</h2>
+        <p>Below are the jobs we handle most often. Not sure if yours fits? Send a quote request and describe what's going on &mdash; if we can't fix it in your driveway, we'll tell you straight up.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>A/C repair &amp; service</h3>
+          <p>Blowing warm, making noise, or not blowing at all &mdash; diagnosed and recharged on-site.</p>
+        </div>
+        <div class="service-card">
+          <h3>Gas &amp; diesel engine repair</h3>
+          <p>Thirty years of experience across both, from misfires to bigger mechanical issues.</p>
+        </div>
+        <div class="service-card">
+          <h3>Batteries, starters &amp; alternators</h3>
+          <p>Won't start, won't stay running, or dying overnight &mdash; tested and replaced on the spot.</p>
+        </div>
+        <div class="service-card">
+          <h3>Brakes</h3>
+          <p>Grinding, squealing, or soft pedal &mdash; pads, rotors, and related work.</p>
+        </div>
+        <div class="service-card">
+          <h3>Belts, hoses &amp; cooling system</h3>
+          <p>Overheating, leaks, or worn belts caught before they strand you.</p>
+        </div>
+        <div class="service-card">
+          <h3>General diagnostics</h3>
+          <p>Check engine light or something just feels off &mdash; we'll find out why.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- HOW IT WORKS ---------- -->
+  <section class="how" id="how">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">The process</span>
+        <h2>Four steps, no towing required</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="num">1</span>
+          <h3>Tell us what's wrong</h3>
+          <p>Fill out the quote form or call &mdash; describe the vehicle and the problem.</p>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <h3>Get a fair quote</h3>
+          <p>We'll follow up with an estimate before any work starts. No surprises.</p>
+        </div>
+        <div class="step">
+          <span class="num">3</span>
+          <h3>Pick a time</h3>
+          <p>Book a slot that works for you using our online schedule.</p>
+        </div>
+        <div class="step">
+          <span class="num">4</span>
+          <h3>We come to you</h3>
+          <p>We show up with the tools and fix it right in your driveway.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- SERVICE AREA ---------- -->
+  <section id="area">
+    <div class="wrap">
+      <div class="area-grid">
+        <div>
+          <div class="section-head" style="margin-bottom:0;">
+            <span class="kicker">Where we work</span>
+            <h2>Based in Cave City, we travel to you</h2>
+            <p>We regularly cover the towns below. Outside this list? Send your location in the quote form &mdash; if we can make it work, we will.</p>
+          </div>
+          <ul class="area-list">
+            <li>Cave City</li>
+            <li>Batesville</li>
+            <li>Melbourne</li>
+            <li>Cherokee Village</li>
+            <li>Ash Flat</li>
+            <li>Evening Shade</li>
+            <li>Sidney</li>
+            <li>Southside</li>
+          </ul>
+          <div class="area-note">
+            <strong>Editor's note:</strong> this town list and travel radius is a placeholder based on Cave City's general area &mdash; swap it for the exact towns/counties Reed actually covers. See the setup guide for where to edit this.
+          </div>
+        </div>
+        <div class="map-box">
+          <svg viewBox="0 0 300 300" width="70%" aria-hidden="true">
+            <circle cx="150" cy="150" r="140" fill="none" stroke="#3E5C76" stroke-width="2" stroke-dasharray="6 8"/>
+            <circle cx="150" cy="150" r="90" fill="none" stroke="#3E5C76" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.6"/>
+            <circle cx="150" cy="150" r="9" fill="#E2622B"/>
+            <circle cx="150" cy="150" r="3" fill="#20242A"/>
+            <text x="150" y="185" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="13" fill="#4A5158">Cave City, AR</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- TESTIMONIAL ---------- -->
+  <section class="testimonial">
+    <div class="wrap">
+      <div class="quote-box">
+        <p class="q">"If I had a nickel for every time you got me back up and running I would be a rich man. Y'all have always been more than fair and honest with me."</p>
+        <p class="who">&mdash; Brice Foust, customer</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- QUOTE FORM + SCHEDULE ---------- -->
+  <section id="quote">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Get started</span>
+        <h2>Request a quote or book a time</h2>
+        <p>Tell us about your vehicle and we'll get back to you with a price. Already have a quote? Jump straight to scheduling on the right.</p>
+      </div>
+
+      <div class="split">
+        <!-- Quote form: EDIT ME - replace YOUR_FORM_ID with your Formspree form ID -->
+        <form id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+          <div class="field-row">
+            <div class="field">
+              <label for="name">Full name</label>
+              <input type="text" id="name" name="name" required>
+            </div>
+            <div class="field">
+              <label for="phone">Phone number</label>
+              <input type="tel" id="phone" name="phone" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="vehicle">Vehicle (year / make / model)</label>
+              <input type="text" id="vehicle" name="vehicle" placeholder="e.g. 2014 Chevy Silverado" required>
+            </div>
+            <div class="field">
+              <label for="fuel">Fuel type</label>
+              <select id="fuel" name="fuel">
+                <option value="gas">Gas</option>
+                <option value="diesel">Diesel</option>
+                <option value="other">Other / not sure</option>
+              </select>
+            </div>
+          </div>
+          <div class="field">
+            <label for="location">Your location (town or address)</label>
+            <input type="text" id="location" name="location" required>
+          </div>
+          <div class="field">
+            <label for="issue">What's going on with the vehicle?</label>
+            <textarea id="issue" name="issue" required></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send quote request</button>
+          <p class="form-status" id="formStatus"></p>
+          <p class="form-note">Prefer to talk it through? Call <a href="tel:8708349872" style="color:var(--asphalt); font-weight:600;">(870) 834-9872</a> instead.</p>
+        </form>
+
+        <!-- Schedule: EDIT ME - replace calendly URL with your real Calendly link -->
+        <div class="schedule-card">
+          <h3>Already got a quote? Book your appointment</h3>
+          <p>Pick a day and time that works for you. We'll confirm by text or call before we head out.</p>
+          <div class="calendly-placeholder" id="calendlySlot">
+            Calendly scheduler goes here.<br>
+            Replace this block with your Calendly embed once your account is set up (see the setup guide).
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- HOURS ---------- -->
+  <section id="hours" style="background:var(--concrete);">
+    <div class="wrap">
+      <div class="area-grid">
+        <div class="section-head" style="margin-bottom:0;">
+          <span class="kicker">Availability</span>
+          <h2>Hours</h2>
+          <p id="openStatus" style="font-weight:600; color:var(--asphalt);"></p>
+          <p style="margin-top:18px;">These are Reed's regular on-site hours. Evenings or Sundays may still be possible for urgent issues &mdash; just call and ask.</p>
+        </div>
+        <div style="background:var(--white); border:1px solid var(--concrete-dark); padding:26px 30px;">
+          <div class="hours-row" data-day="1"><span>Monday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="2"><span>Tuesday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="3"><span>Wednesday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="4"><span>Thursday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="5"><span>Friday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="6"><span>Saturday</span><span>10:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="0"><span>Sunday</span><span>10:00 AM &ndash; 5:00 PM</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- PAYMENT ---------- -->
+  <section class="pay">
+    <div class="wrap">
+      <div>
+        <h2>Already got your invoice?</h2>
+        <p>Pay securely online &mdash; no cash or check needed on-site.</p>
+      </div>
+      <!-- EDIT ME - replace with your real Stripe Payment Link -->
+      <a href="https://buy.stripe.com/REPLACE_ME" class="btn btn-primary">Pay your invoice</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <h4>Reed On The Go</h4>
+        <p>On-site auto repair for Cave City, Arkansas and surrounding areas. Gas and diesel, A/C, and general mechanic work &mdash; 30 years in the trade.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <p><a href="tel:8708349872">(870) 834-9872</a></p>
+        <p><a href="mailto:chevyreed1974@gmail.com">chevyreed1974@gmail.com</a></p>
+        <p>15 Hwy 115, Cave City, AR 72521</p>
+        <p><a href="https://www.facebook.com/p/Reed-On-The-Go-61550024221433/" target="_blank" rel="noopener">Facebook page</a></p>
+      </div>
+      <div>
+        <h4>Quick links</h4>
+        <p><a href="#services">Services</a></p>
+        <p><a href="#how">How it works</a></p>
+        <p><a href="#area">Service area</a></p>
+        <p><a href="#quote">Get a quote</a></p>
+      </div>
+      <div>
+        <h4>Hours</h4>
+        <div class="hours-row"><span>Mon&ndash;Fri</span><span>8am&ndash;5pm</span></div>
+        <div class="hours-row"><span>Sat&ndash;Sun</span><span>10am&ndash;5pm</span></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; <span id="year"></span> Reed On The Go</span>
+      <span>Site built for Reed On The Go</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Hours: figure out if currently open, and highlight today's row
+  (function(){
+    const hours = { // 24hr format, day index: 0=Sun ... 6=Sat
+      0:[10,17], 1:[8,17], 2:[8,17], 3:[8,17], 4:[8,17], 5:[8,17], 6:[10,17]
+    };
+    const now = new Date();
+    const day = now.getDay();
+    const currentHour = now.getHours() + now.getMinutes()/60;
+    const [openHr, closeHr] = hours[day];
+    const isOpen = currentHour >= openHr && currentHour < closeHr;
+
+    const statusEl = document.getElementById('openStatus');
+    if (statusEl){
+      statusEl.textContent = isOpen ? 'Open now' : 'Closed now';
+      statusEl.style.color = isOpen ? '#2E6B3E' : '#B0392B';
+    }
+
+    const todayRow = document.querySelector('.hours-row[data-day="' + day + '"]');
+    if (todayRow){
+      todayRow.style.color = 'var(--white)';
+      todayRow.style.fontWeight = '600';
+      const label = todayRow.querySelector('span:first-child');
+      if (label) label.style.color = 'var(--orange)';
+    }
+  })();
+
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
+  });
+  navLinks.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navLinks.classList.remove('open'));
+  });
+
+  // Quote form submission (uses Formspree - see setup guide)
+  const quoteForm = document.getElementById('quoteForm');
+  const formStatus = document.getElementById('formStatus');
+
+  quoteForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const actionUrl = quoteForm.getAttribute('action');
+
+    if (actionUrl.includes('YOUR_FORM_ID')) {
+      formStatus.textContent = 'Form not connected yet — see the setup guide to link this to Formspree.';
+      formStatus.className = 'form-status error';
+      return;
+    }
+
+    const submitBtn = quoteForm.querySelector('.submit-btn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      const response = await fetch(actionUrl, {
+        method: 'POST',
+        body: new FormData(quoteForm),
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (response.ok) {
+        formStatus.textContent = "Thanks — your request is in. We'll be in touch soon.";
+        formStatus.className = 'form-status success';
+        quoteForm.reset();
+      } else {
+        formStatus.textContent = 'Something went wrong sending that. Please call (870) 834-9872 instead.';
+        formStatus.className = 'form-status error';
+      }
+    } catch (err) {
+      formStatus.textContent = 'Something went wrong sending that. Please call (870) 834-9872 instead.';
+      formStatus.className = 'form-status error';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send quote request';
+    }
+  });
+</script>
+
+</body>
+</html>
