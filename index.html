@@ -5,25 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reed On The Go | Mobile Mechanic — Cave City, AR</title>
 <meta name="description" content="On-site auto repair in Cave City, Arkansas. 30 years of experience, gas & diesel, A/C work, fair pricing. We come to you.">
+<meta name="theme-color" content="#20242A">
+<meta name="color-scheme" content="light only">
+<meta property="og:title" content="Reed On The Go — Mobile Mechanic, Cave City AR">
+<meta property="og:description" content="30 years of experience. We come to your driveway and fix it there — no towing needed.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23E2622B'/%3E%3Ctext x='50' y='68' font-family='Arial, sans-serif' font-weight='700' font-size='58' fill='%2320242A' text-anchor='middle'%3ER%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --asphalt:#20242A;
+    --asphalt-2:#282D34;
     --steel:#3E5C76;
     --steel-light:#6C8AA6;
     --orange:#E2622B;
     --orange-dark:#C24F1F;
+    --yellow:#F0B429;
     --concrete:#E7E8E3;
     --concrete-dark:#D7D8D0;
     --paper:#F6F6F3;
     --white:#FFFFFF;
     --ink:#20242A;
     --ink-soft:#4A5158;
+    --green:#2E6B3E;
+    --red:#B0392B;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; color-scheme:light;}
   body{
     font-family:'Work Sans', -apple-system, sans-serif;
     color:var(--ink);
@@ -40,14 +50,30 @@
   }
   a{color:inherit; text-decoration:none;}
   img{max-width:100%; display:block;}
-  .wrap{max-width:1080px; margin:0 auto; padding:0 24px;}
-  section{padding:76px 0;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 24px;}
+  section{padding:84px 0;}
   ul{list-style:none;}
+  .icon{width:26px; height:26px; stroke:var(--orange); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; flex:none;}
 
-  /* Focus visibility */
   a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
     outline:3px solid var(--orange); outline-offset:2px;
   }
+
+  /* Texture: subtle diagonal stripe overlay for dark sections */
+  .texture{
+    position:relative;
+  }
+  .texture::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:repeating-linear-gradient(-45deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 26px);
+    pointer-events:none;
+  }
+  .texture > *{ position:relative; z-index:1; }
+
+  /* Reveal-on-scroll */
+  .reveal{opacity:0; transform:translateY(16px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.is-visible{opacity:1; transform:translateY(0);}
 
   /* ---------- Header ---------- */
   header{
@@ -57,153 +83,176 @@
   }
   .nav{
     display:flex; align-items:center; justify-content:space-between;
-    padding:14px 24px; max-width:1080px; margin:0 auto;
+    padding:14px 24px; max-width:1100px; margin:0 auto;
   }
   .logo{
     font-family:'Oswald', sans-serif;
     font-weight:700; font-size:1.35rem;
     color:var(--white);
-    display:flex; align-items:baseline; gap:8px;
+    display:flex; align-items:center; gap:9px;
   }
+  .logo-mark{
+    width:32px; height:32px; border-radius:50%; background:var(--orange);
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+  .logo-mark svg{width:18px; height:18px; stroke:var(--asphalt); stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round;}
   .logo span{color:var(--orange);}
-  .nav-links{display:flex; gap:28px; align-items:center;}
-  .nav-links a{color:var(--concrete); font-size:0.95rem; font-weight:500; transition:color .15s;}
-  .nav-links a:hover{color:var(--white);}
+  .nav-links{display:flex; gap:26px; align-items:center;}
+  .nav-links a:not(.nav-call){color:var(--concrete); font-size:0.94rem; font-weight:500; transition:color .15s;}
+  .nav-links a:not(.nav-call):hover{color:var(--white);}
   .nav-call{
     background:var(--orange); color:var(--white)!important;
-    padding:9px 18px; border-radius:2px; font-weight:600;
+    padding:9px 18px; border-radius:2px; font-weight:600; font-size:0.94rem;
   }
   .nav-call:hover{background:var(--orange-dark);}
   .nav-toggle{display:none; background:none; border:none; color:var(--white); font-size:1.6rem; cursor:pointer;}
 
-  @media (max-width:760px){
+  @media (max-width:780px){
     .nav-links{
       position:absolute; top:100%; left:0; right:0;
-      background:var(--asphalt); flex-direction:column;
+      background:var(--asphalt); flex-direction:column; align-items:flex-start;
       padding:8px 24px 20px; gap:16px;
       display:none;
     }
     .nav-links.open{display:flex;}
     .nav-toggle{display:block;}
+    .nav-call{margin-top:6px;}
   }
 
   /* ---------- Hero ---------- */
-  .hero{
-    background:var(--asphalt);
-    color:var(--white);
-    padding:64px 0 0;
-    overflow:hidden;
+  .hero{ background:var(--asphalt); color:var(--white); padding:64px 0 0; overflow:hidden; }
+  .hero .wrap{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center; }
+  .hero-tag{ color:var(--orange); font-weight:600; font-size:0.95rem; margin-bottom:14px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .fb-badge{
+    display:inline-flex; align-items:center; gap:6px;
+    background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.15);
+    padding:4px 10px; border-radius:20px; font-size:0.78rem; color:var(--concrete); font-weight:500;
   }
-  .hero .wrap{
-    display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;
-  }
-  .hero-tag{
-    color:var(--orange); font-weight:600; font-size:0.95rem;
-    margin-bottom:14px;
-  }
-  .hero h1{
-    font-size:clamp(2.4rem, 5vw, 3.6rem);
-    color:var(--white);
-    margin-bottom:18px;
-  }
-  .hero p.lede{
-    font-size:1.15rem; color:var(--concrete); max-width:46ch; margin-bottom:30px;
-  }
-  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px;}
+  .fb-badge .star{color:var(--yellow);}
+  .hero h1{ font-size:clamp(2.4rem, 5vw, 3.7rem); color:var(--white); margin-bottom:18px; }
+  .hero p.lede{ font-size:1.15rem; color:var(--concrete); max-width:46ch; margin-bottom:30px; }
+  .hero-ctas{display:flex; gap:14px; flex-wrap:wrap; margin-bottom:56px; align-items:center;}
   .btn{
-    display:inline-block; padding:14px 26px; border-radius:2px;
+    display:inline-flex; align-items:center; gap:8px; padding:14px 26px; border-radius:2px;
     font-weight:600; font-size:1rem; cursor:pointer; border:2px solid transparent;
-    transition:background .15s, color .15s, border-color .15s;
+    transition:background .15s, color .15s, border-color .15s, transform .1s;
   }
+  .btn:active{transform:translateY(1px);}
   .btn-primary{background:var(--orange); color:var(--white);}
   .btn-primary:hover{background:var(--orange-dark);}
   .btn-outline{border-color:var(--concrete); color:var(--white);}
   .btn-outline:hover{border-color:var(--white); background:rgba(255,255,255,.06);}
+  .btn-sm{padding:9px 16px; font-size:0.9rem;}
+  .text-link{font-size:0.92rem; color:var(--concrete); text-decoration:underline; text-underline-offset:3px;}
+  .text-link:hover{color:var(--white);}
 
   .road-graphic{width:100%; height:auto;}
+  .pulse-dot{ animation:pulse 2.2s ease-in-out infinite; transform-origin:center; }
+  @keyframes pulse{ 0%,100%{transform:scale(1); opacity:1;} 50%{transform:scale(1.35); opacity:.55;} }
 
-  /* Trust strip */
-  .trust{
-    background:var(--steel); color:var(--white);
-    border-top:1px solid rgba(255,255,255,.15);
-  }
-  .trust .wrap{
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:18px;
-    padding:22px 24px;
-  }
-  .trust-item{
-    display:flex; align-items:center; gap:10px; font-size:0.98rem; font-weight:500;
-  }
-  .trust-item .dot{width:7px; height:7px; background:var(--orange); border-radius:50%; flex:none;}
+  .trust{ background:var(--steel); color:var(--white); border-top:1px solid rgba(255,255,255,.15); }
+  .trust .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:22px; padding:24px; }
+  .trust-item{ display:flex; align-items:center; gap:10px; font-size:0.97rem; font-weight:500; }
+  .trust-item svg{width:20px; height:20px; stroke:var(--yellow); fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex:none;}
 
   /* ---------- Section headings ---------- */
-  .section-head{max-width:60ch; margin-bottom:44px;}
-  .section-head .kicker{
-    color:var(--orange); font-weight:600; font-size:0.92rem; display:block; margin-bottom:8px;
-  }
+  .section-head{max-width:62ch; margin-bottom:46px;}
+  .section-head .kicker{ color:var(--orange); font-weight:600; font-size:0.92rem; display:block; margin-bottom:8px; }
   .section-head h2{font-size:clamp(1.7rem, 3.2vw, 2.3rem);}
   .section-head p{color:var(--ink-soft); margin-top:12px; font-size:1.05rem;}
 
-  /* ---------- Services ---------- */
-  .services-grid{
-    display:grid; grid-template-columns:repeat(3, 1fr); gap:2px;
-    background:var(--concrete-dark);
+  /* ---------- About ---------- */
+  .about-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:52px; align-items:center;}
+  .about-photo{
+    aspect-ratio:4/5; background:var(--concrete); border:2px dashed var(--concrete-dark);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:24px; color:var(--ink-soft); font-size:0.88rem; border-radius:2px;
   }
-  .service-card{
-    background:var(--white); padding:30px 26px; border-left:3px solid var(--orange);
+  .about-photo-stack{display:flex; flex-direction:column; gap:16px;}
+  .about-photo-wrap{
+    aspect-ratio:4/5; border-radius:2px; overflow:hidden; border:3px solid var(--orange);
+    box-shadow:0 12px 28px rgba(0,0,0,0.35);
+  }
+  .about-photo-wrap-sm{ aspect-ratio:16/10; }
+  .about-photo-img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .about-stats{display:flex; gap:32px; margin-top:26px; flex-wrap:wrap;}
+  .about-stat .num{font-family:'Oswald',sans-serif; font-size:2.1rem; color:var(--orange); font-weight:700; line-height:1;}
+  .about-stat .label{font-size:0.85rem; color:var(--ink-soft); margin-top:4px;}
+  @media (max-width:780px){ .about-grid{grid-template-columns:1fr;} .about-photo{aspect-ratio:16/9;} .about-photo-stack{max-width:340px; margin:0 auto;} }
+
+  /* ---------- Services ---------- */
+  .services-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:2px; background:var(--concrete-dark); }
+  .service-card{ background:var(--white); padding:30px 26px; border-left:3px solid var(--orange); transition:background .15s; }
+  .service-card:hover{background:#FCFAF7;}
+  .service-card .icon-wrap{
+    width:44px; height:44px; border-radius:50%; background:var(--concrete);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px;
   }
   .service-card h3{font-size:1.15rem; margin-bottom:10px;}
   .service-card p{color:var(--ink-soft); font-size:0.96rem;}
-  @media (max-width:760px){ .services-grid{grid-template-columns:1fr;} }
+  @media (max-width:780px){ .services-grid{grid-template-columns:1fr;} }
 
   /* ---------- How it works ---------- */
   .how{background:var(--asphalt); color:var(--white);}
   .how .section-head h2, .how .section-head p{color:var(--white);}
   .how .section-head p{color:var(--concrete);}
-  .steps{
-    display:grid; grid-template-columns:repeat(4,1fr); gap:28px;
-  }
+  .steps{ display:grid; grid-template-columns:repeat(4,1fr); gap:28px; }
   .step{border-top:2px solid var(--orange); padding-top:18px;}
-  .step .num{
-    font-family:'Oswald',sans-serif; font-size:2rem; color:var(--orange); font-weight:600;
-    display:block; margin-bottom:8px;
-  }
+  .step .num{ font-family:'Oswald',sans-serif; font-size:2rem; color:var(--orange); font-weight:600; display:block; margin-bottom:8px; }
   .step h3{color:var(--white); font-size:1.05rem; margin-bottom:8px;}
   .step p{color:var(--concrete); font-size:0.93rem;}
-  @media (max-width:760px){ .steps{grid-template-columns:1fr 1fr;} }
+  @media (max-width:780px){ .steps{grid-template-columns:1fr 1fr;} }
   @media (max-width:480px){ .steps{grid-template-columns:1fr;} }
 
   /* ---------- Service area ---------- */
   .area-grid{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
   .area-list{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
-  .area-list li{
-    background:var(--concrete); padding:7px 14px; font-size:0.92rem; font-weight:500;
-    border-radius:2px; color:var(--ink);
+  .area-list li{ background:var(--concrete); padding:7px 14px; font-size:0.92rem; font-weight:500; border-radius:2px; color:var(--ink); }
+  .area-note{ margin-top:22px; padding:16px 18px; background:var(--white); border-left:3px solid var(--steel); font-size:0.93rem; color:var(--ink-soft); }
+  .map-container{
+    position:relative; aspect-ratio:1/1; border-radius:2px; overflow:hidden;
+    border:1px solid var(--concrete-dark); background:var(--concrete);
   }
-  .area-note{
-    margin-top:22px; padding:16px 18px; background:var(--white); border-left:3px solid var(--steel);
-    font-size:0.93rem; color:var(--ink-soft);
-  }
-  .map-box{
-    background:var(--concrete); aspect-ratio:1/1; border-radius:2px;
-    display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
-    border:1px solid var(--concrete-dark);
-  }
-  @media (max-width:760px){ .area-grid{grid-template-columns:1fr;} }
+  .map-container iframe{ width:100%; height:100%; border:0; display:block; }
+  .map-overlay{ position:absolute; inset:0; pointer-events:none; }
+  @media (max-width:780px){ .area-grid{grid-template-columns:1fr;} }
 
   /* ---------- Testimonial ---------- */
   .testimonial{background:var(--concrete);}
-  .quote-box{max-width:66ch;}
-  .quote-box p.q{
-    font-family:'Oswald', sans-serif; font-weight:500; font-size:1.5rem; color:var(--asphalt);
-    line-height:1.4; margin-bottom:18px;
-  }
+  .quote-centered{max-width:700px; margin:0 auto; text-align:center; position:relative;}
+  .quote-mark{ font-family:'Oswald',sans-serif; font-size:5rem; color:var(--orange); opacity:0.35; line-height:1; display:block; margin-bottom:-10px; }
+  .quote-box p.q{ font-family:'Oswald', sans-serif; font-weight:500; font-size:1.6rem; color:var(--asphalt); line-height:1.4; margin-bottom:18px; }
   .quote-box .who{color:var(--ink-soft); font-weight:600; font-size:0.95rem;}
+
+  .social-btn{
+    display:inline-flex; align-items:center; gap:10px; padding:13px 22px;
+    background:var(--steel); color:var(--white); border-radius:2px; font-weight:600; font-size:0.96rem;
+    transition:background .15s, transform .1s;
+  }
+  .social-btn:hover{background:#334C63;}
+  .social-btn:active{transform:translateY(1px);}
+  .social-btn-google{background:var(--orange);}
+  .social-btn-google:hover{background:var(--orange-dark);}
+  .social-icon{
+    width:30px; height:30px; border-radius:50%; background:rgba(255,255,255,0.18);
+    display:flex; align-items:center; justify-content:center; flex:none;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-item{ border-bottom:1px solid var(--concrete-dark); }
+  .faq-q{
+    width:100%; text-align:left; background:none; border:none; padding:20px 4px;
+    display:flex; justify-content:space-between; align-items:center; gap:16px;
+    font-family:'Work Sans', sans-serif; font-weight:600; font-size:1.02rem; color:var(--asphalt); cursor:pointer;
+  }
+  .faq-q .plus{ font-size:1.4rem; color:var(--orange); transition:transform .2s; flex:none; }
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{ max-height:0; overflow:hidden; transition:max-height .25s ease; }
+  .faq-a p{ padding:0 4px 20px; color:var(--ink-soft); font-size:0.96rem; max-width:65ch; }
 
   /* ---------- Quote form / schedule ---------- */
   .split{display:grid; grid-template-columns:1fr 1fr; gap:56px;}
   @media (max-width:840px){ .split{grid-template-columns:1fr;} }
-
   .field{margin-bottom:16px;}
   .field label{display:block; font-size:0.9rem; font-weight:600; margin-bottom:6px; color:var(--asphalt);}
   .field input, .field textarea, .field select{
@@ -216,49 +265,58 @@
   .form-note{font-size:0.85rem; color:var(--ink-soft); margin-top:14px;}
   .submit-btn{
     width:100%; padding:14px; background:var(--orange); color:var(--white);
-    border:none; border-radius:2px; font-weight:600; font-size:1.02rem; cursor:pointer;
-    font-family:inherit;
+    border:none; border-radius:2px; font-weight:600; font-size:1.02rem; cursor:pointer; font-family:inherit;
   }
   .submit-btn:hover{background:var(--orange-dark);}
   .form-status{margin-top:12px; font-size:0.9rem; display:none;}
-  .form-status.success{color:#2E6B3E; display:block;}
-  .form-status.error{color:#B0392B; display:block;}
+  .form-status.success{color:var(--green); display:block;}
+  .form-status.error{color:var(--red); display:block;}
 
-  .schedule-card{
-    background:var(--white); border:1px solid var(--concrete-dark); padding:26px; height:100%;
-  }
+  .schedule-card{ background:var(--white); border:1px solid var(--concrete-dark); padding:26px; height:100%; }
   .schedule-card h3{margin-bottom:10px;}
   .schedule-card p{color:var(--ink-soft); margin-bottom:18px; font-size:0.96rem;}
-  .calendly-placeholder{
-    border:2px dashed var(--concrete-dark); padding:34px 20px; text-align:center;
-    color:var(--ink-soft); font-size:0.92rem; border-radius:2px;
-  }
+  .calendly-placeholder{ border:2px dashed var(--concrete-dark); padding:34px 20px; text-align:center; color:var(--ink-soft); font-size:0.92rem; border-radius:2px; }
+
+  /* ---------- Hours ---------- */
+  .hours-row{display:flex; justify-content:space-between; font-size:0.95rem; padding:6px 0; border-bottom:1px solid var(--concrete);}
+  .hours-row:last-child{border-bottom:none;}
 
   /* ---------- Payment ---------- */
   .pay{background:var(--steel); color:var(--white);}
   .pay .wrap{display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:24px;}
   .pay h2{color:var(--white); font-size:1.7rem;}
   .pay p{color:var(--concrete); max-width:44ch; margin-top:8px;}
-  .pay .btn-primary{white-space:nowrap;}
 
   /* ---------- Footer ---------- */
-  footer{background:var(--asphalt); color:var(--concrete); padding:52px 0 28px;}
+  footer{background:var(--asphalt); color:var(--concrete); padding:52px 0 90px;}
   .footer-grid{display:grid; grid-template-columns:1.1fr 1fr 1fr 1fr; gap:32px; margin-bottom:36px;}
-  .hours-row{display:flex; justify-content:space-between; font-size:0.9rem; color:var(--concrete); margin-bottom:6px; gap:12px;}
-  .hours-row span:first-child{color:#9AA1A8;}
   footer h4{color:var(--white); font-family:'Oswald',sans-serif; font-size:1rem; margin-bottom:14px;}
   footer p, footer li{font-size:0.93rem; color:var(--concrete); margin-bottom:8px;}
   footer a:hover{color:var(--white);}
-  .footer-bottom{
-    border-top:1px solid rgba(255,255,255,.12); padding-top:22px;
-    font-size:0.82rem; color:#8A9199; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;
-  }
+  .footer-hours-row{display:flex; justify-content:space-between; font-size:0.9rem; color:var(--concrete); margin-bottom:6px; gap:12px;}
+  .footer-hours-row span:first-child{color:#9AA1A8;}
+  .footer-bottom{ border-top:1px solid rgba(255,255,255,.12); padding-top:22px; font-size:0.82rem; color:#8A9199; display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
   @media (max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr;} }
-  @media (max-width:500px){ .footer-grid{grid-template-columns:1fr;} }
+  @media (max-width:500px){ .footer-grid{grid-template-columns:1fr;} footer{padding-bottom:110px;} }
+
+  /* ---------- Sticky mobile call bar ---------- */
+  .mobile-bar{
+    display:none; position:fixed; bottom:0; left:0; right:0; z-index:60;
+    background:var(--asphalt); border-top:3px solid var(--orange);
+    padding:10px 14px; gap:10px;
+  }
+  .mobile-bar a{
+    flex:1; text-align:center; padding:12px 8px; border-radius:2px; font-weight:600; font-size:0.95rem;
+    display:flex; align-items:center; justify-content:center; gap:6px;
+  }
+  .mobile-bar .call{background:var(--orange); color:var(--white);}
+  .mobile-bar .text{background:transparent; color:var(--white); border:2px solid var(--concrete);}
+  @media (max-width:780px){ .mobile-bar{display:flex;} }
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    *{transition:none!important;}
+    *{transition:none!important; animation:none!important;}
+    .reveal{opacity:1; transform:none;}
   }
 </style>
 </head>
@@ -266,14 +324,17 @@
 
 <header>
   <nav class="nav">
-    <a href="#top" class="logo">REED <span>ON THE GO</span></a>
+    <a href="#top" class="logo">
+      <span class="logo-mark"><svg viewBox="0 0 24 24"><path d="M14 3l4 4-2 2-4-4z"/><path d="M6 12l6 6-2 2-6-6z"/><path d="M8 10l6 6"/></svg></span>
+      REED <span>ON THE GO</span>
+    </a>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</button>
     <div class="nav-links" id="navLinks">
+      <a href="#about">About</a>
       <a href="#services">Services</a>
-      <a href="#how">How It Works</a>
       <a href="#area">Service Area</a>
       <a href="#hours">Hours</a>
-      <a href="#quote">Get a Quote</a>
+      <a href="#faq">FAQ</a>
       <a href="tel:8708349872" class="nav-call">Call (870) 834-9872</a>
     </div>
   </nav>
@@ -282,7 +343,7 @@
 <main id="top">
 
   <!-- ---------- HERO ---------- -->
-  <section class="hero">
+  <section class="hero texture">
     <div class="wrap">
       <div>
         <span class="hero-tag">On-site auto repair &middot; Cave City, Arkansas</span>
@@ -290,14 +351,19 @@
         <p class="lede">30 years of hands-on experience with gas and diesel engines. When your truck or car can't make it to a shop, we bring the shop to you &mdash; right in your driveway.</p>
         <div class="hero-ctas">
           <a href="#quote" class="btn btn-primary">Get a free quote</a>
-          <a href="tel:8708349872" class="btn btn-outline">Call (870) 834-9872</a>
+          <a href="tel:8708349872" class="btn btn-outline">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            (870) 834-9872
+          </a>
         </div>
       </div>
       <div>
         <svg class="road-graphic" viewBox="0 0 420 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a service route from the shop to a customer's location">
           <path d="M40 300 C 120 300, 100 180, 190 170 S 280 60, 380 50" stroke="#3E5C76" stroke-width="4" fill="none" stroke-dasharray="2 14" stroke-linecap="round"/>
-          <circle cx="40" cy="300" r="10" fill="#6C8AA6"/>
-          <circle cx="40" cy="300" r="4" fill="#20242A"/>
+          <g>
+            <circle class="pulse-dot" cx="40" cy="300" r="10" fill="#6C8AA6"/>
+            <circle cx="40" cy="300" r="4" fill="#20242A"/>
+          </g>
           <g transform="translate(360,26)">
             <path d="M20 0 C 9 0 0 9 0 20 C 0 34 20 52 20 52 C 20 52 40 34 40 20 C 40 9 31 0 20 0 Z" fill="#E2622B"/>
             <path d="M20 12 l3 6 h6 l-5 4 2 6 -6 -4 -6 4 2 -6 -5 -4 h6 z" fill="#20242A"/>
@@ -316,44 +382,76 @@
 
     <div class="trust">
       <div class="wrap">
-        <div class="trust-item"><span class="dot"></span>30 years of experience</div>
-        <div class="trust-item"><span class="dot"></span>Gas &amp; diesel engines</div>
-        <div class="trust-item"><span class="dot"></span>A/C repair &amp; service</div>
-        <div class="trust-item"><span class="dot"></span>Fair, honest pricing</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>30 years of experience</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg>Gas &amp; diesel engines</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg>A/C repair &amp; service</div>
+        <div class="trust-item"><svg viewBox="0 0 24 24"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Fair, honest pricing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- ABOUT ---------- -->
+  <section id="about" class="texture" style="background-color:#20242A;">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="about-photo-stack reveal">
+          <div class="about-photo-wrap">
+            <img src="images/robert-reed.jpg" alt="Robert Reed, owner of Reed On The Go" class="about-photo-img" style="object-position:center 30%;">
+          </div>
+          <div class="about-photo-wrap about-photo-wrap-sm">
+            <img src="images/reed-truck.jpg" alt="Reed On The Go's work truck at a gas station" class="about-photo-img" style="object-position:30% 55%;">
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="kicker" style="color:#E2622B; font-weight:600; font-size:0.92rem; display:block; margin-bottom:8px;">Who you're calling</span>
+          <h2 style="font-size:clamp(1.7rem, 3.2vw, 2.3rem); margin-bottom:16px; color:#FFFFFF;">Thirty years under the hood, now brought to your driveway</h2>
+          <p style="color:#D7D9DB; font-size:1.05rem; margin-bottom:14px;">Robert Reed has spent three decades fixing gas and diesel vehicles around Cave City. Reed On The Go was built on a simple idea: if your vehicle can't make it to a shop, there's no reason to pay for a tow when the tools can just as easily come to you.</p>
+          <p style="color:#D7D9DB; font-size:1.05rem;">No corporate dispatch, no middleman &mdash; just Robert, his tools, and a fair price.</p>
+          <div class="about-stats">
+            <div class="about-stat"><div class="num" style="color:#E2622B;">30</div><div class="label" style="color:#A8ADB3;">Years of experience</div></div>
+            <div class="about-stat"><div class="num" style="color:#E2622B;">0</div><div class="label" style="color:#A8ADB3;">Tow trucks needed</div></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- ---------- SERVICES ---------- -->
-  <section id="services">
+  <section id="services" style="background:var(--white);">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <span class="kicker">What we fix</span>
         <h2>On-site repair, done right the first time</h2>
         <p>Below are the jobs we handle most often. Not sure if yours fits? Send a quote request and describe what's going on &mdash; if we can't fix it in your driveway, we'll tell you straight up.</p>
       </div>
-      <div class="services-grid">
+      <div class="services-grid reveal">
         <div class="service-card">
+          <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24"><path d="M12 2v20M2 12h20M5 5l14 14M19 5L5 19"/></svg></div>
           <h3>A/C repair &amp; service</h3>
           <p>Blowing warm, making noise, or not blowing at all &mdash; diagnosed and recharged on-site.</p>
         </div>
         <div class="service-card">
+          <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg></div>
           <h3>Gas &amp; diesel engine repair</h3>
           <p>Thirty years of experience across both, from misfires to bigger mechanical issues.</p>
         </div>
         <div class="service-card">
+          <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="12" rx="1.5"/><path d="M7 7V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M8 13h3M13 11v4"/></svg></div>
           <h3>Batteries, starters &amp; alternators</h3>
           <p>Won't start, won't stay running, or dying overnight &mdash; tested and replaced on the spot.</p>
         </div>
         <div class="service-card">
+          <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="2.4"/><path d="M12 4v2.4M12 17.6V20M4 12h2.4M17.6 12H20"/></svg></div>
           <h3>Brakes</h3>
           <p>Grinding, squealing, or soft pedal &mdash; pads, rotors, and related work.</p>
         </div>
         <div class="service-card">
+          <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24"><path d="M4 12c0-3 2-5 5-5s5 2 5 5-2 5-5 5M14 12c0 3 2 5 5 5s5-2 5-5-2-5-5-5"/></svg></div>
           <h3>Belts, hoses &amp; cooling system</h3>
           <p>Overheating, leaks, or worn belts caught before they strand you.</p>
         </div>
         <div class="service-card">
+          <div class="icon-wrap"><svg class="icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div>
           <h3>General diagnostics</h3>
           <p>Check engine light or something just feels off &mdash; we'll find out why.</p>
         </div>
@@ -362,13 +460,13 @@
   </section>
 
   <!-- ---------- HOW IT WORKS ---------- -->
-  <section class="how" id="how">
+  <section class="how texture" id="how">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
         <span class="kicker">The process</span>
         <h2>Four steps, no towing required</h2>
       </div>
-      <div class="steps">
+      <div class="steps reveal">
         <div class="step">
           <span class="num">1</span>
           <h3>Tell us what's wrong</h3>
@@ -396,7 +494,7 @@
   <!-- ---------- SERVICE AREA ---------- -->
   <section id="area">
     <div class="wrap">
-      <div class="area-grid">
+      <div class="area-grid reveal">
         <div>
           <div class="section-head" style="margin-bottom:0;">
             <span class="kicker">Where we work</span>
@@ -413,18 +511,49 @@
             <li>Sidney</li>
             <li>Southside</li>
           </ul>
-          <div class="area-note">
-            <strong>Editor's note:</strong> this town list and travel radius is a placeholder based on Cave City's general area &mdash; swap it for the exact towns/counties Reed actually covers. See the setup guide for where to edit this.
-          </div>
         </div>
-        <div class="map-box">
-          <svg viewBox="0 0 300 300" width="70%" aria-hidden="true">
-            <circle cx="150" cy="150" r="140" fill="none" stroke="#3E5C76" stroke-width="2" stroke-dasharray="6 8"/>
-            <circle cx="150" cy="150" r="90" fill="none" stroke="#3E5C76" stroke-width="1.5" stroke-dasharray="4 6" opacity="0.6"/>
-            <circle cx="150" cy="150" r="9" fill="#E2622B"/>
-            <circle cx="150" cy="150" r="3" fill="#20242A"/>
-            <text x="150" y="185" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="13" fill="#4A5158">Cave City, AR</text>
-          </svg>
+        <div>
+          <div class="map-container">
+            <!-- EDIT ME: swap the address in this URL if the base location ever changes -->
+            <iframe
+              src="https://www.google.com/maps?q=15+Hwy+115,+Cave+City,+AR+72521&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              aria-label="Map showing Reed On The Go's location in Cave City, Arkansas">
+            </iframe>
+            <div class="map-overlay" aria-hidden="true">
+              <svg viewBox="0 0 300 300" width="100%" height="100%">
+                <circle cx="150" cy="150" r="140" fill="none" stroke="#FFFFFF" stroke-width="5" opacity="0.9"/>
+                <circle cx="150" cy="150" r="140" fill="none" stroke="#3E5C76" stroke-width="2.5" stroke-dasharray="6 8"/>
+                <circle cx="150" cy="150" r="90" fill="none" stroke="#FFFFFF" stroke-width="4" opacity="0.85"/>
+                <circle cx="150" cy="150" r="90" fill="none" stroke="#3E5C76" stroke-width="2" stroke-dasharray="4 6" opacity="0.9"/>
+              </svg>
+            </div>
+          </div>
+          <p style="font-size:0.85rem; color:var(--ink-soft); margin-top:12px;">The rings are a general guide to how far we travel, not an exact boundary. Pan and zoom the map, or just ask when you request your quote.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- HOURS ---------- -->
+  <section id="hours" style="background:var(--concrete);">
+    <div class="wrap">
+      <div class="area-grid reveal">
+        <div class="section-head" style="margin-bottom:0;">
+          <span class="kicker">Availability</span>
+          <h2>Hours</h2>
+          <p id="openStatus" style="font-weight:600; color:var(--asphalt);"></p>
+          <p style="margin-top:18px;">These are Reed's regular on-site hours. Evenings or Sundays may still be possible for urgent issues &mdash; just call and ask.</p>
+        </div>
+        <div style="background:var(--white); border:1px solid var(--concrete-dark); padding:26px 30px;">
+          <div class="hours-row" data-day="1"><span>Monday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="2"><span>Tuesday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="3"><span>Wednesday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="4"><span>Thursday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="5"><span>Friday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="6"><span>Saturday</span><span>10:00 AM &ndash; 5:00 PM</span></div>
+          <div class="hours-row" data-day="0"><span>Sunday</span><span>10:00 AM &ndash; 5:00 PM</span></div>
         </div>
       </div>
     </div>
@@ -432,26 +561,81 @@
 
   <!-- ---------- TESTIMONIAL ---------- -->
   <section class="testimonial">
-    <div class="wrap">
-      <div class="quote-box">
-        <p class="q">"If I had a nickel for every time you got me back up and running I would be a rich man. Y'all have always been more than fair and honest with me."</p>
+    <div class="wrap reveal">
+      <div class="quote-box quote-centered">
+        <span class="quote-mark" aria-hidden="true">&#8220;</span>
+        <p class="q">If I had a nickel for every time you got me back up and running I would be a rich man. Y'all have always been more than fair and honest with me.</p>
         <p class="who">&mdash; Brice Foust, customer</p>
       </div>
     </div>
   </section>
 
-  <!-- ---------- QUOTE FORM + SCHEDULE ---------- -->
-  <section id="quote">
+  <!-- ---------- FIND & FOLLOW ---------- -->
+  <section style="background:var(--white); padding:56px 0;">
+    <div class="wrap" style="text-align:center;">
+      <span class="kicker" style="color:var(--orange); font-weight:600; font-size:0.92rem; display:block; margin-bottom:10px;">Find us online</span>
+      <h2 style="font-size:clamp(1.4rem, 2.6vw, 1.9rem); margin-bottom:26px;">Follow along or leave us a review</h2>
+      <div style="display:flex; justify-content:center; gap:18px; flex-wrap:wrap;">
+        <a href="https://www.facebook.com/p/Reed-On-The-Go-61550024221433/" target="_blank" rel="noopener" class="social-btn">
+          <span class="social-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="#FFFFFF"><path d="M13.5 21v-8.2h2.75l.41-3.2h-3.16V7.55c0-.93.26-1.56 1.59-1.56h1.7V3.14C15.98 3.1 15.06 3 14 3c-2.24 0-3.78 1.37-3.78 3.88v2.72H7.46v3.2h2.76V21h3.28z"/></svg>
+          </span>
+          Facebook page
+        </a>
+        <a href="https://www.google.com/maps?cid=13831865068541463796" target="_blank" rel="noopener" class="social-btn social-btn-google">
+          <span class="social-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path fill="#FFFFFF" d="M21.35 11.1h-9.17v2.98h5.27c-.23 1.5-1.68 4.4-5.27 4.4-3.17 0-5.76-2.62-5.76-5.86s2.59-5.86 5.76-5.86c1.8 0 3.01.77 3.7 1.43l2.52-2.43C16.86 4.02 14.87 3 12.18 3 7.13 3 3 7.1 3 12.15S7.13 21.3 12.18 21.3c5.28 0 8.52-3.71 8.52-8.94 0-.6-.07-1.06-.15-1.5z"/></svg>
+          </span>
+          Find us on Google
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- FAQ ---------- -->
+  <section id="faq" style="background:var(--white);">
     <div class="wrap">
-      <div class="section-head">
+      <div class="section-head reveal">
+        <span class="kicker">Common questions</span>
+        <h2>Frequently asked questions</h2>
+      </div>
+      <div class="reveal" style="max-width:760px;">
+        <div class="faq-item open">
+          <button class="faq-q">Do you charge just to come look at it? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Every visit starts with a quote so there are no surprises. Ask about the current trip/diagnostic fee when you request your quote &mdash; it depends on distance and the issue.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What if you get out there and can't fix it on-site? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Some repairs genuinely need a full shop or specialty equipment. If that's the case, we'll tell you plainly before starting any work so you're never stuck paying for a wasted trip.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can I pay online instead of with cash or check? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes &mdash; once your repair is done, you can pay your invoice securely online. Scroll down to the payment section for the link.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do you work on both gas and diesel vehicles? <span class="plus">+</span></button>
+          <div class="faq-a"><p>Yes, both &mdash; 30 years of experience covers a wide range of gas and diesel engines, cars and trucks alike.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How far out do you travel? <span class="plus">+</span></button>
+          <div class="faq-a"><p>We regularly cover the towns listed in the Service Area section above. If you're outside that list, send your location in a quote request and we'll let you know if we can make it work.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------- QUOTE FORM + SCHEDULE ---------- -->
+  <section id="quote" style="background:var(--paper);">
+    <div class="wrap">
+      <div class="section-head reveal">
         <span class="kicker">Get started</span>
         <h2>Request a quote or book a time</h2>
         <p>Tell us about your vehicle and we'll get back to you with a price. Already have a quote? Jump straight to scheduling on the right.</p>
       </div>
 
-      <div class="split">
-        <!-- Quote form: EDIT ME - replace YOUR_FORM_ID with your Formspree form ID -->
-        <form id="quoteForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+      <div class="split reveal">
+        <!-- Quote form: connected to Formspree -->
+        <form id="quoteForm" action="https://formspree.io/f/mnpqzngq" method="POST">
           <div class="field-row">
             <div class="field">
               <label for="name">Full name</label>
@@ -490,7 +674,7 @@
           </div>
           <button type="submit" class="submit-btn">Send quote request</button>
           <p class="form-status" id="formStatus"></p>
-          <p class="form-note">Prefer to talk it through? Call <a href="tel:8708349872" style="color:var(--asphalt); font-weight:600;">(870) 834-9872</a> instead.</p>
+          <p class="form-note">Prefer to talk it through? Call <a href="tel:8708349872" style="color:var(--asphalt); font-weight:600;">(870) 834-9872</a> or <a href="sms:8708349872" style="color:var(--asphalt); font-weight:600;">text us</a> instead.</p>
         </form>
 
         <!-- Schedule: EDIT ME - replace calendly URL with your real Calendly link -->
@@ -501,29 +685,6 @@
             Calendly scheduler goes here.<br>
             Replace this block with your Calendly embed once your account is set up (see the setup guide).
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ---------- HOURS ---------- -->
-  <section id="hours" style="background:var(--concrete);">
-    <div class="wrap">
-      <div class="area-grid">
-        <div class="section-head" style="margin-bottom:0;">
-          <span class="kicker">Availability</span>
-          <h2>Hours</h2>
-          <p id="openStatus" style="font-weight:600; color:var(--asphalt);"></p>
-          <p style="margin-top:18px;">These are Reed's regular on-site hours. Evenings or Sundays may still be possible for urgent issues &mdash; just call and ask.</p>
-        </div>
-        <div style="background:var(--white); border:1px solid var(--concrete-dark); padding:26px 30px;">
-          <div class="hours-row" data-day="1"><span>Monday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
-          <div class="hours-row" data-day="2"><span>Tuesday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
-          <div class="hours-row" data-day="3"><span>Wednesday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
-          <div class="hours-row" data-day="4"><span>Thursday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
-          <div class="hours-row" data-day="5"><span>Friday</span><span>8:00 AM &ndash; 5:00 PM</span></div>
-          <div class="hours-row" data-day="6"><span>Saturday</span><span>10:00 AM &ndash; 5:00 PM</span></div>
-          <div class="hours-row" data-day="0"><span>Sunday</span><span>10:00 AM &ndash; 5:00 PM</span></div>
         </div>
       </div>
     </div>
@@ -556,6 +717,8 @@
         <p><a href="mailto:chevyreed1974@gmail.com">chevyreed1974@gmail.com</a></p>
         <p>15 Hwy 115, Cave City, AR 72521</p>
         <p><a href="https://www.facebook.com/p/Reed-On-The-Go-61550024221433/" target="_blank" rel="noopener">Facebook page</a></p>
+        <!-- Google Business Profile -->
+        <p><a href="https://www.google.com/maps?cid=13831865068541463796" target="_blank" rel="noopener">Find us on Google</a></p>
       </div>
       <div>
         <h4>Quick links</h4>
@@ -566,8 +729,8 @@
       </div>
       <div>
         <h4>Hours</h4>
-        <div class="hours-row"><span>Mon&ndash;Fri</span><span>8am&ndash;5pm</span></div>
-        <div class="hours-row"><span>Sat&ndash;Sun</span><span>10am&ndash;5pm</span></div>
+        <div class="footer-hours-row"><span>Mon&ndash;Fri</span><span>8am&ndash;5pm</span></div>
+        <div class="footer-hours-row"><span>Sat&ndash;Sun</span><span>10am&ndash;5pm</span></div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -577,34 +740,17 @@
   </div>
 </footer>
 
+<!-- Sticky mobile call bar -->
+<div class="mobile-bar">
+  <a href="tel:8708349872" class="call">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Call Now
+  </a>
+  <a href="sms:8708349872" class="text">Text Us</a>
+</div>
+
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Hours: figure out if currently open, and highlight today's row
-  (function(){
-    const hours = { // 24hr format, day index: 0=Sun ... 6=Sat
-      0:[10,17], 1:[8,17], 2:[8,17], 3:[8,17], 4:[8,17], 5:[8,17], 6:[10,17]
-    };
-    const now = new Date();
-    const day = now.getDay();
-    const currentHour = now.getHours() + now.getMinutes()/60;
-    const [openHr, closeHr] = hours[day];
-    const isOpen = currentHour >= openHr && currentHour < closeHr;
-
-    const statusEl = document.getElementById('openStatus');
-    if (statusEl){
-      statusEl.textContent = isOpen ? 'Open now' : 'Closed now';
-      statusEl.style.color = isOpen ? '#2E6B3E' : '#B0392B';
-    }
-
-    const todayRow = document.querySelector('.hours-row[data-day="' + day + '"]');
-    if (todayRow){
-      todayRow.style.color = 'var(--white)';
-      todayRow.style.fontWeight = '600';
-      const label = todayRow.querySelector('span:first-child');
-      if (label) label.style.color = 'var(--orange)';
-    }
-  })();
 
   // Mobile nav toggle
   const navToggle = document.getElementById('navToggle');
@@ -616,6 +762,62 @@
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => navLinks.classList.remove('open'));
   });
+
+  // Hours: figure out if currently open, and highlight today's row
+  (function(){
+    const hours = { 0:[10,17], 1:[8,17], 2:[8,17], 3:[8,17], 4:[8,17], 5:[8,17], 6:[10,17] };
+    const now = new Date();
+    const day = now.getDay();
+    const currentHour = now.getHours() + now.getMinutes()/60;
+    const [openHr, closeHr] = hours[day];
+    const isOpen = currentHour >= openHr && currentHour < closeHr;
+
+    const statusEl = document.getElementById('openStatus');
+    if (statusEl){
+      statusEl.textContent = isOpen ? 'Open now' : 'Closed now';
+      statusEl.style.color = isOpen ? '#2E6B3E' : '#B0392B';
+    }
+    const todayRow = document.querySelector('.hours-row[data-day="' + day + '"]');
+    if (todayRow){
+      todayRow.style.color = 'var(--asphalt)';
+      todayRow.style.fontWeight = '700';
+      const label = todayRow.querySelector('span:first-child');
+      if (label) label.style.color = 'var(--orange-dark)';
+    }
+  })();
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const answer = item.querySelector('.faq-a');
+    if (item.classList.contains('open')) answer.style.maxHeight = answer.scrollHeight + 'px';
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(other => {
+        if (other !== item){
+          other.classList.remove('open');
+          other.querySelector('.faq-a').style.maxHeight = null;
+        }
+      });
+      item.classList.toggle('open', !isOpen);
+      answer.style.maxHeight = !isOpen ? answer.scrollHeight + 'px' : null;
+    });
+  });
+
+  // Scroll reveal
+  if ('IntersectionObserver' in window){
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting){
+          e.target.classList.add('is-visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
+  }
 
   // Quote form submission (uses Formspree - see setup guide)
   const quoteForm = document.getElementById('quoteForm');
