@@ -479,8 +479,8 @@
         </div>
         <div class="step">
           <span class="num">3</span>
-          <h3>Pick a time</h3>
-          <p>Book a slot that works for you using our online schedule.</p>
+          <h3>Confirm a time</h3>
+          <p>Tell us what times work for you &mdash; we'll confirm one that works for both of us.</p>
         </div>
         <div class="step">
           <span class="num">4</span>
@@ -627,8 +627,8 @@
     <div class="wrap">
       <div class="section-head reveal">
         <span class="kicker">Get started</span>
-        <h2>Request a quote or book a time</h2>
-        <p>Tell us about your vehicle and we'll get back to you with a price. Already have a quote? Jump straight to scheduling on the right.</p>
+        <h2>Request a quote</h2>
+        <p>Tell us about your vehicle, when you're free, and how to reach you &mdash; we'll follow up with a price and confirm a time.</p>
       </div>
 
       <div class="split reveal">
@@ -670,19 +670,43 @@
             <label for="issue">What's going on with the vehicle?</label>
             <textarea id="issue" name="issue" required></textarea>
           </div>
+          <div class="field">
+            <label for="availability">When works for you?</label>
+            <textarea id="availability" name="availability" placeholder="A day and time, or a few windows that work &mdash; e.g. 'Tuesday after 3pm' or 'weekday mornings'" required></textarea>
+          </div>
+          <div class="field">
+            <label for="contact_pref">Best way to reach you back</label>
+            <select id="contact_pref" name="contact_pref">
+              <option value="phone_call">Call me</option>
+              <option value="text">Text me</option>
+              <option value="email">Email me</option>
+            </select>
+          </div>
+          <!-- Honeypot: real visitors never see or fill this in. Formspree silently discards any submission where it's filled, so bots never reach Robert's inbox. -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
           <button type="submit" class="submit-btn">Send quote request</button>
           <p class="form-status" id="formStatus"></p>
           <p class="form-note">Prefer to talk it through? Call <a href="tel:8708349872" style="color:var(--asphalt); font-weight:600;">(870) 834-9872</a> or <a href="sms:8708349872" style="color:var(--asphalt); font-weight:600;">text us</a> instead.</p>
         </form>
 
-        <!-- Schedule: EDIT ME - replace calendly URL with your real Calendly link -->
         <div class="schedule-card">
-          <h3>Already got a quote? Book your appointment</h3>
-          <p>Pick a day and time that works for you. We'll confirm by text or call before we head out.</p>
-          <div class="calendly-placeholder" id="calendlySlot">
-            Calendly scheduler goes here.<br>
-            Replace this block with your Calendly embed once your account is set up (see the setup guide).
-          </div>
+          <h3>What happens after you submit</h3>
+          <p>We'll look at the times you gave us and get back to you to confirm one &mdash; by call, text, or email, whichever you picked.</p>
+          <ul style="list-style:none; padding:0; margin:0;">
+            <li style="display:flex; gap:12px; margin-bottom:16px; align-items:flex-start;">
+              <span style="background:var(--orange); color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.85rem; flex:none;">1</span>
+              <span style="color:var(--ink-soft); font-size:0.95rem;">You send your quote request with a few times that work for you.</span>
+            </li>
+            <li style="display:flex; gap:12px; margin-bottom:16px; align-items:flex-start;">
+              <span style="background:var(--orange); color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.85rem; flex:none;">2</span>
+              <span style="color:var(--ink-soft); font-size:0.95rem;">We reach back out with a price and confirm which time works for us too.</span>
+            </li>
+            <li style="display:flex; gap:12px; align-items:flex-start;">
+              <span style="background:var(--orange); color:#fff; width:24px; height:24px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Oswald',sans-serif; font-weight:700; font-size:0.85rem; flex:none;">3</span>
+              <span style="color:var(--ink-soft); font-size:0.95rem;">We show up on the agreed day and time, ready to fix it.</span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
